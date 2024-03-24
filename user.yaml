@@ -62,11 +62,11 @@
 
   - name: get the user count
     ansible.builtin.command: mongo --host mongodb.gopisri.cloud --quiet --eval 'db = db.getSiblingDB('users'); db.users.count()'
-    register: users_count
+    register: user_count
 
   - name: load users count 
     ansible.builtin.command: mongo --host mongodb.gopisri.cloud </app/schema/user.js
-    when: users_count.stdout == "0"
+    when: user_count.stdout == "0"
 
   - name: start and enable user
     ansible.builtin.service:
