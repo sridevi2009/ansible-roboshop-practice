@@ -19,3 +19,43 @@
       path: /app
       state: directory
 
+  - name: download catalogue application file to app directory
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /tmp 
+
+  - name: unzip the catalogue.zip file
+    ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+
+  - name: install the dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+
+  - name: copy the systemd catalogue service
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: daemon-reload and start
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+  
+  # lets start after the data is load
+
+  - name: copy mongodb.repo
+    ansible.builtin.copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: install mongodb clinet
+    ansible.builtin.package:
+      name: mongodb-org-shell
+      state: present     
+   
+  
+
+
