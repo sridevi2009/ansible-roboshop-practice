@@ -60,8 +60,8 @@
       name: mongodb-org-shell
       state: present 
 
-  - name: get the user count
-    ansible.builtin.command: mongo --host mongodb.gopisri.cloud --quiet --eval 'db = db.getSiblingDB('users'); db.users.count()'
+  - name: get the users count
+    ansible.builtin.command: mongo --host mongodb.gopisri.cloud --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
     register: user_count
 
   - name: load users count 
