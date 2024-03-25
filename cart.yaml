@@ -27,7 +27,7 @@
   - name:  dowunload the cart.zip
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/cart.zip
-      dest: /tmp/cart.zip
+      dest: /tmp
 
   - name: extract the cart.zip
     ansible.builtin.unarchive:
@@ -36,7 +36,7 @@
       remote_src: yes
 
   - name: install dependencies
-    ansible.builtin.shell: npm install
+    ansible.builtin.command: npm install
     args:
       chdir: /app
 
