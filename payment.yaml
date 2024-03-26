@@ -19,14 +19,14 @@
       path: /app
       state: directory
 
-  - name: download cart application
+  - name: download payment application
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/payment.zip
       dest: /tmp
 
-  - name: extract cart application
+  - name: extract payment application
     ansible.builtin.unarchive:
-      src: /tmp/cart.zip
+      src: /tmp/payment.zip
       dest: /app
       remote_src: yes
 
