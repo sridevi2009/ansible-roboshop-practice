@@ -46,6 +46,6 @@
 
   - name: start and enable cart
     ansible.builtin.service:
-      name: cart
+      name: payment
       state: restarted
       enabled: yes
